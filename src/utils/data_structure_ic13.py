@@ -110,11 +110,11 @@ def icdar2013_train(
 		with open(base_path + '/' + i, 'r') as f:
 			lines = f.readlines()
 			for no,line in enumerate(lines):
-				line = line.strip().split(",")
-				annots = line[:8]
-				text = ','.join(line[8:])
-				if no == 0:
-					annots[0] = annots[0][1:]
+				line = line.strip().split(" ")
+				a = line[:4]
+				a = [[a[0], a[1]], [a[0], a[3]], [a[2], a[3]], [a[2], a[1]]]
+				annots = a
+				text = ','.join(line[4:])
 				cur_annot.append(np.array(annots, dtype=np.int32).reshape([4, 2]).tolist())
 				cur_text.append(text)
 			all_annots['annots'][image_name]['bbox'] = cur_annot
